@@ -91,7 +91,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
     func renderer(_ renderer: SCNSceneRenderer, willRenderScene scene: SCNScene, atTime time: TimeInterval) {
         
         // request nearby
-        let reqURL = "https://nwhacks2019-graffitiar.azurewebsites.net/drawing/nearby?longitude="+ long+ "&latitude=" + lat
+        let reqURL = "https://nwhacks2019-graffitiar.azurewebsites.net/drawing/nearby?longitude=\(long)&latitude=\(lat)"
         
         guard let pointOfView = sceneView.pointOfView else { return }
         
@@ -102,17 +102,19 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         {
             var points = [[String : Any]]()
 
-            Alamofire.request(.GET, reqURL)
+            Alamofire.request(reqURL)
             .responseJSON { response in
                 if let json = response.result.value {
                     print("JSON: \(json)")
-                    let arr = json as? [Any] {
-                        for item in arr {
-                            points = item.points as ? [[String : Any]]
-                            let longFetched = item.longitude as? Double
-                            let latFetched = item.latitude as? Double
-                            let deltaLong =  longFetched - long
-                            let deltaLat =  latFetched - lat
+                    //print("xxx")
+                    var arr = json as! [Any]
+                    for item in arr  {
+                            var itemx = item as! [String : Any]
+                            points = itemx["points"] as! [[String : Any]]
+                            let longFetched = itemx["longitude"] as! Double
+                            let latFetched = itemx["latitude"] as! Double
+                            let deltaLong =  longFetched - self.long
+                            let deltaLat =  latFetched - self.lat
                             print("deltaLong")
                             print(deltaLong)
                             print("deltaLat")
@@ -124,19 +126,19 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
                             while index < points.count-1 {
                                 let first = SCNVector3.init(points[index]["x"] as! Double + xdiff, points[index]["y"] as! Double, points[index]["z"] as! Double + zdiff)
                                 let second = SCNVector3.init(points[index+1]["x"] as! Double + xdiff , points[index+1]["y"] as! Double, points[index+1]["z"] as! Double + zdiff  )
-                                let line = lineFrom(vector: first, toVector: second)
-                                let lineNode = SCNNode(geometry: line)
-                                lineNode.geometry?.firstMaterial?.diffuse.contents = lineColor
-                                sceneView.scene.rootNode.addChildNode(lineNode)
+                                let twoPointsNode1 = SCNNode();
+                                scene.rootNode.addChildNode(twoPointsNode1.buildLine(
+                                    from: first, to: second, radius: 0.005, color: .cyan))
                                 index = index + 1
                             }
                             
-                            flag = 0
+                        
                         }
                     }
                 }
+             flag = 0
             }
-        }
+        
         
         if buttonHighlighted {
             if startingPoint == 0 {

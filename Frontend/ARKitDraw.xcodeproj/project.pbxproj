@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		150D9751EB3A6D3EA0096AF9 /* Pods_ARKitDraw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3145EA39615348F142CBF273 /* Pods_ARKitDraw.framework */; };
 		43A32DF91EF0672C004C32DB /* SCNVector3Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A32DF81EF0670B004C32DB /* SCNVector3Extensions.swift */; };
 		DC9869581EE8D7BE007DDA39 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9869571EE8D7BE007DDA39 /* AppDelegate.swift */; };
 		DC98695A1EE8D7BE007DDA39 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = DC9869591EE8D7BE007DDA39 /* art.scnassets */; };
@@ -17,7 +18,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3145EA39615348F142CBF273 /* Pods_ARKitDraw.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ARKitDraw.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		43A32DF81EF0670B004C32DB /* SCNVector3Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCNVector3Extensions.swift; sourceTree = "<group>"; };
+		C293A63AB481C19517543F7F /* Pods-ARKitDraw.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARKitDraw.release.xcconfig"; path = "Pods/Target Support Files/Pods-ARKitDraw/Pods-ARKitDraw.release.xcconfig"; sourceTree = "<group>"; };
 		DC9869541EE8D7BE007DDA39 /* ARKitDraw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARKitDraw.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC9869571EE8D7BE007DDA39 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DC9869591EE8D7BE007DDA39 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -26,6 +29,7 @@
 		DC9869601EE8D7BE007DDA39 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DC9869631EE8D7BE007DDA39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DC9869651EE8D7BE007DDA39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EF95CB0CA7EC47CBD7D55BFC /* Pods-ARKitDraw.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARKitDraw.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ARKitDraw/Pods-ARKitDraw.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,17 +37,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				150D9751EB3A6D3EA0096AF9 /* Pods_ARKitDraw.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E1FD6DDE062C23328095403 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3145EA39615348F142CBF273 /* Pods_ARKitDraw.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9C1109951258763963E59D3D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EF95CB0CA7EC47CBD7D55BFC /* Pods-ARKitDraw.debug.xcconfig */,
+				C293A63AB481C19517543F7F /* Pods-ARKitDraw.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		DC98694B1EE8D7BD007DDA39 = {
 			isa = PBXGroup;
 			children = (
 				DC9869561EE8D7BE007DDA39 /* ARKitDraw */,
 				DC9869551EE8D7BE007DDA39 /* Products */,
+				9C1109951258763963E59D3D /* Pods */,
+				0E1FD6DDE062C23328095403 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -77,9 +101,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DC9869681EE8D7BE007DDA39 /* Build configuration list for PBXNativeTarget "ARKitDraw" */;
 			buildPhases = (
+				95C92F90DDE70F67376E4501 /* [CP] Check Pods Manifest.lock */,
 				DC9869501EE8D7BE007DDA39 /* Sources */,
 				DC9869511EE8D7BE007DDA39 /* Frameworks */,
 				DC9869521EE8D7BE007DDA39 /* Resources */,
+				A191AF1D5E704174D9904D7C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -136,6 +162,53 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		95C92F90DDE70F67376E4501 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ARKitDraw-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A191AF1D5E704174D9904D7C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ARKitDraw/Pods-ARKitDraw-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ARKitDraw/Pods-ARKitDraw-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DC9869501EE8D7BE007DDA39 /* Sources */ = {
@@ -275,6 +348,7 @@
 		};
 		DC9869691EE8D7BE007DDA39 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EF95CB0CA7EC47CBD7D55BFC /* Pods-ARKitDraw.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = LSPM78L559;
@@ -289,6 +363,7 @@
 		};
 		DC98696A1EE8D7BE007DDA39 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C293A63AB481C19517543F7F /* Pods-ARKitDraw.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = LSPM78L559;
