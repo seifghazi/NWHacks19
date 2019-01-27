@@ -7,8 +7,8 @@ LottieAR is an iOS application that lets you share your 3D graffitis in augmente
 
 ## Screenshots
 <p>
-<img align="center" width="80" src="Assets/sc1.png" alt="App icon">
-<img align="center" width="80" src="Assets/sc2.png" alt="App icon">
+<img align="center" width="300" src="Assets/sc1.png" alt="App icon">
+<img align="center" width="300" src="Assets/sc2.png" alt="App icon">
 </p>
 
 
