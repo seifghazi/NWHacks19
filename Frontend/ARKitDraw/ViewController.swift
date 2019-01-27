@@ -90,13 +90,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
 
     func renderer(_ renderer: SCNSceneRenderer, willRenderScene scene: SCNScene, atTime time: TimeInterval) {
         
-       // request nearby
-       let reqURL = "https://nwhacks2019-graffitiar.azurewebsites.net/drawing/nearby?longitude="+ long+ "&latitude=" + lat
-       
-//        for item in items        
-        
-
-//            for point in points
+        // request nearby
+        let reqURL = "https://nwhacks2019-graffitiar.azurewebsites.net/drawing/nearby?longitude="+ long+ "&latitude=" + lat
         
         guard let pointOfView = sceneView.pointOfView else { return }
         
@@ -141,8 +136,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
             }
         }
         
-       
-        
         if buttonHighlighted {
             if startingPoint == 0 {
                 firstlong = long
@@ -177,14 +170,21 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
                 print("BUTTON LEFT")
                 x = 0
                 startingPoint = 0
-                /// send request
-                print(pointArray)
+                // send request
+                let PostURL = "https://nwhacks2019-graffitiar.azurewebsites.net/drawings"
+                let parameters: Parameters = [
+                    "longitude": firstlong,
+                    "latitude": firstlat, 
+                    "points": pointArray
+                ]
+                Alamofire.request(PostURL, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+
+                print(parameters)
             }
         }
         previousPoint = currentPosition
         //let prev = previousPoint.worldPosition
        
-        
         glLineWidth(200)
     }
     
