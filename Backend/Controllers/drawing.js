@@ -9,14 +9,14 @@ exports.create = (req, res) => {
 
     var drawing = new Drawing({
         user_id: req.body.user_id || "Test",
+        longitude: req.body.longitude,
+        latitude: req.body.latitude,
+        points: req.body.points,
         meta: {
             upvotes: 0,
             downvotes: 0
         }
     });
-    drawing["longitude"] = req.longitude;
-    drawing["latitude"] = req.latitude;
-    drawing["points"] = req.points;
 
     drawing.save()
         .then(data => {
@@ -40,12 +40,15 @@ exports.findAll = (req, res) => {
 };
 
 exports.findNearby = (req, res) => {
+    var longitude = Number(req.query.longitude);
+    var latitude = Number(req.query.latitude);
+
     var latitudeThreshold = 15 / 111111;
-    var longitudeThreshold = 15 / 111111 * Math.cos(req.params.latitude);
+    var longitudeThreshold = 15 / 111111 * Math.abs(Math.cos(latitude));
 
     Drawing.find({
-        latitude: { $lte: req.params.latitude - latitudeThreshold, $gte: req.params.latitude } + latitudeThreshold,
-        longitude: { $lte: req.params.longitude - longitudeThreshold, $gte: req.params.longitude + longitudeThreshold }
+        latitude: { $gte: latitude - latitudeThreshold, $lte: latitude + latitudeThreshold },
+        longitude: { $gte: longitude - longitudeThreshold, $lte: longitude + longitudeThreshold }
     })
         .then(drawings => {
             res.send(drawings);
@@ -80,9 +83,9 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
     Drawing.findByIdAndUpdate(req.params.drawingId, {
         user_id: req.body.user_id || "Test",
-        longitude: req.longitude,
-        latitude: req.latitude,
-        points: req.points,
+        longitude: req.body.longitude,
+        latitude: req.body.latitude,
+        points: req.body.points,
         meta: {
             upvotes: req.meta.upvotes,
             downvotes: req.meta.downvotes
