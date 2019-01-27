@@ -103,34 +103,36 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
             var points = [[String : Any]]()
 
             Alamofire.request(.GET, reqURL)
-            .response { request, response, data, error in
-                let json = try? JSONSerialization.jsonObject(with: response, options: [])
-                let arr = json as? [Any] {
-                    for item in arr {
-                        points = item.points as ? [[String : Any]]
-                        let longFetched = item.longitude as? Double
-                        let latFetched = item.latitude as? Double
-                        let deltaLong =  longFetched - long
-                        let deltaLat =  latFetched - lat
-                        print("deltaLong")
-                        print(deltaLong)
-                        print("deltaLat")
-                        print(deltaLat)
-                        let xdiff = deltaLong*(111111.0 * cos(deltaLat * Double.pi / 180))
-                        let zdiff = deltaLat*(111111.0)
-                        var index = 0
-                                print(points[index]["x"])
-                        while index < points.count-1 {
-                            let first = SCNVector3.init(points[index]["x"] as! Double + xdiff, points[index]["y"] as! Double, points[index]["z"] as! Double + zdiff)
-                            let second = SCNVector3.init(points[index+1]["x"] as! Double + xdiff , points[index+1]["y"] as! Double, points[index+1]["z"] as! Double + zdiff  )
-                            let line = lineFrom(vector: first, toVector: second)
-                            let lineNode = SCNNode(geometry: line)
-                            lineNode.geometry?.firstMaterial?.diffuse.contents = lineColor
-                            sceneView.scene.rootNode.addChildNode(lineNode)
-                            index = index + 1
+            .responseJSON { response in
+                if let json = response.result.value {
+                    print("JSON: \(json)")
+                    let arr = json as? [Any] {
+                        for item in arr {
+                            points = item.points as ? [[String : Any]]
+                            let longFetched = item.longitude as? Double
+                            let latFetched = item.latitude as? Double
+                            let deltaLong =  longFetched - long
+                            let deltaLat =  latFetched - lat
+                            print("deltaLong")
+                            print(deltaLong)
+                            print("deltaLat")
+                            print(deltaLat)
+                            let xdiff = deltaLong*(111111.0 * cos(deltaLat * Double.pi / 180))
+                            let zdiff = deltaLat*(111111.0)
+                            var index = 0
+                                    print(points[index]["x"])
+                            while index < points.count-1 {
+                                let first = SCNVector3.init(points[index]["x"] as! Double + xdiff, points[index]["y"] as! Double, points[index]["z"] as! Double + zdiff)
+                                let second = SCNVector3.init(points[index+1]["x"] as! Double + xdiff , points[index+1]["y"] as! Double, points[index+1]["z"] as! Double + zdiff  )
+                                let line = lineFrom(vector: first, toVector: second)
+                                let lineNode = SCNNode(geometry: line)
+                                lineNode.geometry?.firstMaterial?.diffuse.contents = lineColor
+                                sceneView.scene.rootNode.addChildNode(lineNode)
+                                index = index + 1
+                            }
+                            
+                            flag = 0
                         }
-                        
-                        flag = 0
                     }
                 }
             }
