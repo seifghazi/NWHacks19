@@ -26,7 +26,7 @@ mongoose.connect(dbConfig.url, {
 });
 
 // start server
-var Nexus = app.listen(process.env.PORT);
+app.listen(process.env.PORT);
 console.log('Server has successfully started on PORT: ' + process.env.PORT);
 
 app.use(function(req, res, next) {

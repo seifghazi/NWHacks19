@@ -14,4 +14,4 @@ var DrawingSchema = new Schema({
     timestamps: true
 });
 
-module.exports();
+module.exports = mongoose.model('Drawing', DrawingSchema);
