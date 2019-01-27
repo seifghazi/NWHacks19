@@ -11,6 +11,7 @@ import SceneKit
 import ARKit
 import MapKit
 import CoreLocation
+import OpenGLES
 
 class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDelegate {
 
@@ -130,7 +131,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         flag = 0
     }
         
-        glLineWidth(500)
+       
         
         if buttonHighlighted {
             if startingPoint == 0 {
@@ -142,10 +143,14 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
             }
           
             if let previousPoint = previousPoint {
-                let line = lineFrom(vector: previousPoint, toVector: currentPosition)
-                let lineNode = SCNNode(geometry: line)
-                lineNode.geometry?.firstMaterial?.diffuse.contents = lineColor
-                sceneView.scene.rootNode.addChildNode(lineNode)
+//                let line = lineFrom(vector: previousPoint, toVector: currentPosition)
+//                let lineNode = SCNNode(geometry: line)
+//                lineNode.geometry?.firstMaterial?.diffuse.contents = lineColor
+//                sceneView.scene.rootNode.addChildNode(lineNode)
+                
+                let twoPointsNode1 = SCNNode();
+                scene.rootNode.addChildNode(twoPointsNode1.buildLine(
+                    from: previousPoint, to: currentPosition, radius: 0.005, color: .cyan))
             }
             let point: [String: Any] =
                 [
@@ -170,7 +175,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         //let prev = previousPoint.worldPosition
        
         
-        glLineWidth(500)
+        glLineWidth(200)
     }
     
     func session(_ session: ARSession, didFailWithError error: Error) {
@@ -202,4 +207,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         return SCNGeometry(sources: [source], elements: [element])
         
     }
+    
+    
 }
