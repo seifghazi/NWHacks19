@@ -2,16 +2,16 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var DrawingSchema = new Schema({
-    user_id:  String,
+    user_id: String,
     longitude: Number,
-    latitude:   Number,
-    points: [{ x: Number, y: Number, z: Number }],
+    latitude: Number,
+    points: [{x: Number, y: Number, z: Number }],
     meta: {
         upvotes: Number,
-        downvotes:  Number
+        downvotes: Number
     }
-},  {
-    timestamps: true
-});
+}, {
+        timestamps: true
+    });
 
 module.exports = mongoose.model('Drawing', DrawingSchema);
