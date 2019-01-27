@@ -40,7 +40,18 @@ exports.findAll = (req, res) => {
 };
 
 exports.findNearby = (req, res) => {
-    
+    var latitudeThreshold = 15 / 111111;
+    var longitudeThreshold = 15 / 111111 * Math.cos(req.params.latitude);
+
+    Drawing.find({latitude: {$lte: req.params.latitude - latitudeThreshold, $gte: req.params.latitude} + latitudeThreshold,
+                  longitude:{$lte: req.params.longitude - longitudeThreshold, $gte: req.params.longitude + longitudeThreshold}})
+    .then(drawings => {
+        res.send(drawings);
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving Drawings."
+        });
+    });
 };
 
 exports.findOne = (req, res) => {
