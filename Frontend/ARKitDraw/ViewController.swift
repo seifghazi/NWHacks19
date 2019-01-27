@@ -30,7 +30,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
     var buttonHighlighted = false
     var x = 0
     var flag=1
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.startingPoint = 0;
