@@ -5,7 +5,7 @@ module.exports = (app) => {
 
     app.get('/drawings', drawings.findAll);
 
-    app.get('/drawings/nearby', drawings.findNearby)
+    app.get('/drawing/nearby', drawings.findNearby)
 
     app.get('/drawings/:drawingId', drawings.findOne);
 

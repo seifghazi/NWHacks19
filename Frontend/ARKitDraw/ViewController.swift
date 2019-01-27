@@ -12,6 +12,7 @@ import ARKit
 import MapKit
 import CoreLocation
 import OpenGLES
+import Alamofire
 
 class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDelegate {
 
@@ -90,6 +91,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
     func renderer(_ renderer: SCNSceneRenderer, willRenderScene scene: SCNScene, atTime time: TimeInterval) {
         
        // request nearby
+       Alamofire.request(.GET, "http://httpbin.org/get", parameters: ["foo": "bar"])
+         .response { request, response, data, error in
+              print(request)
+              print(response)
+              print(error)
+          }
 
 //        for item in items
 //
@@ -106,7 +113,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         if(flag == 1 && long != 0 && lat != 0 )
         {
         var points = [[String : Any]]()
-        
+
         points = 
 
         let longFetched = -123.25571851318668
