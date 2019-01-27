@@ -91,18 +91,11 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
     func renderer(_ renderer: SCNSceneRenderer, willRenderScene scene: SCNScene, atTime time: TimeInterval) {
         
        // request nearby
-       Alamofire.request(.GET, "http://httpbin.org/get", parameters: ["foo": "bar"])
-         .response { request, response, data, error in
-              print(request)
-              print(response)
-              print(error)
-          }
+       let reqURL = "https://nwhacks2019-graffitiar.azurewebsites.net/drawing/nearby?longitude="+ long+ "&latitude=" + lat
+       
+//        for item in items        
+        
 
-//        for item in items
-//
-        
-        
-        
 //            for point in points
         
         guard let pointOfView = sceneView.pointOfView else { return }
@@ -112,33 +105,41 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         let currentPosition = pointOfView.position + (dir * 0.1)
         if(flag == 1 && long != 0 && lat != 0 )
         {
-        var points = [[String : Any]]()
+            var points = [[String : Any]]()
 
-        points = 
-
-        let longFetched = -123.25571851318668
-        let latFetched = 49.263688748390635
-        let deltaLong =  longFetched - long
-        let deltaLat =  latFetched - lat
-        print("deltaLong")
-        print(deltaLong)
-        print("deltaLat")
-        print(deltaLat)
-        let xdiff = deltaLong*(111111.0 * cos(deltaLat * Double.pi / 180))
-        let zdiff = deltaLat*(111111.0)
-        var index = 0
-                print(points[index]["x"])
-        while index < points.count-1 {
-            let first = SCNVector3.init(points[index]["x"] as! Double + xdiff, points[index]["y"] as! Double, points[index]["z"] as! Double + zdiff)
-            let second = SCNVector3.init(points[index+1]["x"] as! Double + xdiff , points[index+1]["y"] as! Double, points[index+1]["z"] as! Double + zdiff  )
-            let line = lineFrom(vector: first, toVector: second)
-            let lineNode = SCNNode(geometry: line)
-            lineNode.geometry?.firstMaterial?.diffuse.contents = lineColor
-            sceneView.scene.rootNode.addChildNode(lineNode)
-            index = index + 1
+            Alamofire.request(.GET, reqURL)
+            .response { request, response, data, error in
+                let json = try? JSONSerialization.jsonObject(with: response, options: [])
+                let arr = json as? [Any] {
+                    for item in arr {
+                        points = item.points as ? [[String : Any]]
+                        let longFetched = item.longitude as? Double
+                        let latFetched = item.latitude as? Double
+                        let deltaLong =  longFetched - long
+                        let deltaLat =  latFetched - lat
+                        print("deltaLong")
+                        print(deltaLong)
+                        print("deltaLat")
+                        print(deltaLat)
+                        let xdiff = deltaLong*(111111.0 * cos(deltaLat * Double.pi / 180))
+                        let zdiff = deltaLat*(111111.0)
+                        var index = 0
+                                print(points[index]["x"])
+                        while index < points.count-1 {
+                            let first = SCNVector3.init(points[index]["x"] as! Double + xdiff, points[index]["y"] as! Double, points[index]["z"] as! Double + zdiff)
+                            let second = SCNVector3.init(points[index+1]["x"] as! Double + xdiff , points[index+1]["y"] as! Double, points[index+1]["z"] as! Double + zdiff  )
+                            let line = lineFrom(vector: first, toVector: second)
+                            let lineNode = SCNNode(geometry: line)
+                            lineNode.geometry?.firstMaterial?.diffuse.contents = lineColor
+                            sceneView.scene.rootNode.addChildNode(lineNode)
+                            index = index + 1
+                        }
+                        
+                        flag = 0
+                    }
+                }
+            }
         }
-        flag = 0
-    }
         
        
         
